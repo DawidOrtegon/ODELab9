@@ -4,6 +4,6 @@ public class BetterEulerMethod implements ODEStep
 {
     @Override
     public double step(double t, double x, double h, ODEEquation function) {
-        return x + (function.function(t,x)*h)/2;
+        return x + (function.function(t+h,x+h))*h;
     }
 }

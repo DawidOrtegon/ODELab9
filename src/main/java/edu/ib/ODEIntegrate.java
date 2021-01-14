@@ -19,7 +19,7 @@ public class ODEIntegrate
         this.stepHandler = stepHandler;
     }
 
-    public void integrate(ODEStep method, double h)
+    public void integrate(ODEStep method, double h, ODEEquation trueFunction)
     {
         double globalError = 0;
         double localError = 0;
@@ -30,7 +30,7 @@ public class ODEIntegrate
              // System.out.println("Time: " + t + " X: " + x);
              stepHandler.update(t,x,globalError,localError);
              // Only for the next value.
-             globalError = (x - function.function(t,x))/function.function(t,x); // Wrong since we need the true function and we do not have it.
+             globalError = Math.abs((trueFunction.function(t,x)-x)/trueFunction.function(t,x)); // Wrong since we need the true function and we do not have it.
              x = method.step(t,x,h,function);
              // For the errors.
              t += h;
